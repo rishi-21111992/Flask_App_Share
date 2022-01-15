@@ -18,15 +18,10 @@ def login():
         return render_template('login.html')
     else:
         name = request.form['username']
-        try:
-            data = User.query.filter_by(username=name).first()
-            if data is not None:
-                session['logged_in'] = True
-                return redirect(url_for('home'))
-            else:
-                return 'Dont Login'
-        except:
-            return "Dont Login"
+        pipeline = pickle.load(open('pickle/user_based_recomm.pkl', 'rb'))
+        sr = pipeline.loc[name].sort_values(ascending=False)[0:20] ## series
+        top_20_products = pd.DataFrame({'name':sr.index})
+        return  render_template('view.html',tables=[top_20_products.to_html(classes='name')], titles = ['NAN', 'Top 20 Prediction'])
 	    
 
 if __name__ == '__main__':
