@@ -8,8 +8,8 @@ app = flask.Flask(__name__)
 def index():
     return flask.render_template('index.html')
 
-@app.route('/hello',methods=['POST'])
-def home():
+@app.route('/login',methods=['POST'])
+def login():
     if request.method == 'POST':
         return render_template('login.html')
 	    
