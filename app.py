@@ -8,10 +8,22 @@ app = flask.Flask(__name__)
 def index():
     return flask.render_template('index.html')
 
-@app.route('/login',methods=['POST'])
+@app.route('/login', methods=['GET', 'POST'])
 def login():
-    if request.method == 'POST':
+    """Login Form"""
+    if request.method == 'GET':
         return render_template('login.html')
+    else:
+        name = request.form['username']
+        try:
+            data = User.query.filter_by(username=name).first()
+            if data is not None:
+                session['logged_in'] = True
+                return redirect(url_for('home'))
+            else:
+                return 'Dont Login'
+        except:
+            return "Dont Login"
 	    
 
 if __name__ == '__main__':
