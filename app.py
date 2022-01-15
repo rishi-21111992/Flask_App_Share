@@ -1,16 +1,15 @@
-# This is basically the heart of my flask 
+"""Flask Login Example and instagram fallowing find"""
+
+from flask import Flask, url_for, render_template, request, redirect, session
+from flask_sqlalchemy import SQLAlchemy
+from instagram import getfollowedby, getname
 
 
-from flask import Flask, render_template, request, redirect, url_for
-from scipy import sparse
-import pandas as pd
-import numpy as np
-import pickle
-import warnings
-warnings.filterwarnings("ignore")
-import xgboost
+app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
+db = SQLAlchemy(app)
 
-app = Flask(__name__)  # intitialize the flaks app  # common 
+
 
 #loading the sparse file which have processed features
 # Raw File which have missing values , Outlier , ..
@@ -26,8 +25,6 @@ app = Flask(__name__)  # intitialize the flaks app  # common
 #Xtest_Scenerio1_for_flask  - holding my data whch will render on UI 
 
 # http:baseurl/age_prediction
-
-
 
 @app.route('/login', methods=['POST'])
 def login():
