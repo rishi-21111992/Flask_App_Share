@@ -26,7 +26,6 @@ def login():
         top_20_products = pd.DataFrame({'name':sr.index})
 
         reviews = pd.read_csv('sample30.csv')
-        reviews['name'].isin(top_20_products['name'])
 
         top_20_reviews = reviews[reviews['name'].isin(top_20_products['name'])][['name','reviews_text']]
 
