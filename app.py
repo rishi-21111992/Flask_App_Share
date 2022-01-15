@@ -30,10 +30,10 @@ def login():
         top_20_reviews = reviews[reviews['name'].isin(top_20_products['name'])][['name','reviews_text']]
 
         transformer = TfidfTransformer()
-        loaded_vec = CountVectorizer(decode_error="replace",vocabulary=pickle.load(open('/pickle/vector', 'rb')))
+        loaded_vec = CountVectorizer(decode_error="replace",vocabulary=pickle.load(open('pickle/vector', 'rb')))
         test_data_features = transformer.fit_transform(loaded_vec.fit_transform(top_20_reviews['reviews_text']))
         
-        loaded_model = pickle.load(open("/pickle/LRModel", 'rb'))
+        loaded_model = pickle.load(open("pickle/LRModel", 'rb'))
         result1 = loaded_model.predict(test_data_features)
         
         top_20_reviews['sentiment'] = result1.tolist()
