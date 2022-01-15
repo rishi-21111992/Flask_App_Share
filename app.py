@@ -18,7 +18,7 @@ def index():
 def login():
     """Login Form"""
     if request.method == 'GET':
-        return render_template('login.html')
+        return render_template('index.html')
     else:
         name = request.form['username']
         pipeline = pickle.load(open('pickle/user_based_recomm.pkl', 'rb'))
