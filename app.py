@@ -4,6 +4,7 @@ import os
 from flask import Flask, url_for, render_template, request, redirect, session
 from flask_sqlalchemy import SQLAlchemy
 import pickle
+import pandas as pd
 
 # Create the application.
 app = flask.Flask(__name__)
