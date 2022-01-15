@@ -42,10 +42,10 @@ def login():
         
         top5 = top.sort_values(by='sentiment',ascending=False)[:5]
         top5.reset_index(level=0, inplace=True)
-        top_5_products['name']= top5['name']
-#        top_5_product = pd.DataFrame({'name':top_5_products})
+        top_5_products= top5['name']
+        top_5_product = pd.DataFrame({'name':top_5_products})
 
-        return  render_template('view.html',tables=[top_5_products.to_html(classes='name')], titles = ['NAN', 'Top 5 Prediction'])
+        return  render_template('view.html',tables=[top_5_product.to_html(classes='name')], titles = ['NAN', 'Top 5 Prediction'])
 
 
 if __name__ == '__main__':
