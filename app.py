@@ -14,7 +14,7 @@ def index():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     """Login Form"""
-    if request.method == 'POST':
+    if request.method == 'GET':
         return render_template('login.html')
     else:
         name = request.form['username']
