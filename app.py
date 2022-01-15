@@ -8,10 +8,11 @@ app = flask.Flask(__name__)
 def index():
     return flask.render_template('index.html')
 
-@app.route('/hello',methods=['Get'])
+@app.route('/hello',methods=['POST'])
 def home():
-    return "Hello1111"
-
+    if request.method == 'POST':
+        return render_template('login.html')
+	    
 
 if __name__ == '__main__':
     app.debug=True
