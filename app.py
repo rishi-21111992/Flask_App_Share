@@ -38,11 +38,11 @@ def login():
         
         top_20_reviews['sentiment'] = result1.tolist()
         
-        top = top_20_reviews.groupby(['name']).sum()
+        top = top_20_reviews.groupby(['name']).mean()
         
         top5 = top.sort_values(by='sentiment',ascending=False)[:5]
 
-        return  render_template('view.html',tables=[top5.to_html(classes='name')], titles = ['NAN', 'Top 5 Prediction'])
+        return  render_template('view.html',tables=[top5['name'].to_html(classes='name')], titles = ['NAN', 'Top 5 Prediction'])
 
 
 if __name__ == '__main__':
