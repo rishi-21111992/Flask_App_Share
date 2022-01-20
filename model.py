@@ -228,10 +228,10 @@ def model(df,classifier,filename):
 
 from mlxtend.plotting import plot_confusion_matrix
 
-### checking through LogisticRegression
+### checking through LogisticRegression  
 
-classifier = LogisticRegression(class_weight = "balanced", C=0.5, solver='sag')
-model(df,classifier,"LRModel")
+#classifier = LogisticRegression(class_weight = "balanced", C=0.5, solver='sag')
+#model(df,classifier,"LRModel")
 
 test = df[df['name'] == 'Red (special Edition) (dvdvideo)']
 test_data = test['reviews_text']
@@ -369,81 +369,6 @@ user_predicted_ratings
 
 user_final_rating = np.multiply(user_predicted_ratings,dummy_train)
 user_final_rating.head()
-
-"""# Evaluation - User User 
-
-Evaluation will we same as you have seen above for the prediction. The only difference being, you will evaluate for the product already rated by the user instead of predicting it for the product not rated by the user. 
-"""
-
-# Find out the common users of test and train dataset.
-common = test[test.reviews_username.isin(train.reviews_username)]
-common.shape
-
-common.head()
-
-# convert into the user-movie matrix.
-common_user_based_matrix = common.pivot_table(index='reviews_username', columns='name', values='reviews_rating')
-
-# Convert the user_correlation matrix into dataframe.
-
-user_correlation_df = pd.DataFrame(user_correlation)
-
-user_correlation_df['reviews_username'] = df_subtracted.index
-user_correlation_df.set_index('reviews_username',inplace=True)
-user_correlation_df.head()
-
-list_name = common.reviews_username.tolist()
-
-user_correlation_df.columns = df_subtracted.index.tolist()
-
-
-user_correlation_df_1 =  user_correlation_df[user_correlation_df.index.isin(list_name)]
-
-user_correlation_df_2 = user_correlation_df_1.T[user_correlation_df_1.T.index.isin(list_name)]
-user_correlation_df_2
-
-user_correlation_df_3 = user_correlation_df_2.T
-user_correlation_df_3
-
-user_correlation_df_3.shape
-
-user_correlation_df_3[user_correlation_df_3<0]=0
-
-common_user_predicted_ratings = np.dot(user_correlation_df_3, common_user_based_matrix.fillna(0))
-common_user_predicted_ratings
-
-dummy_test = common.copy()
-
-dummy_test['reviews_rating'] = dummy_test['reviews_rating'].apply(lambda x: 1 if x>=1 else 0)
-
-dummy_test = dummy_test.pivot_table(index='reviews_username', columns='name', values='reviews_rating').fillna(0)
-
-dummy_test.shape
-
-common_user_predicted_ratings = np.multiply(common_user_predicted_ratings,dummy_test)
-common_user_predicted_ratings.head(2)
-
-"""Calculating the RMSE for only the products rated by user. For RMSE, normalising the rating to (1,5) range."""
-
-from sklearn.preprocessing import MinMaxScaler
-from numpy import *
-
-X  = common_user_predicted_ratings.copy() 
-X = X[X>0]
-
-scaler = MinMaxScaler(feature_range=(1, 5))
-print(scaler.fit(X))
-y = (scaler.transform(X))
-
-print(y)
-
-common_ = common.pivot_table(index='reviews_username', columns='name', values='reviews_rating')
-
-# Finding total non-NaN value
-total_non_nan = np.count_nonzero(~np.isnan(y))
-
-rmse = (sum(sum((common_ - y )**2))/total_non_nan)**0.5
-print("RMSE of User based Similarity : ",rmse)
 
 import pickle 
 pickle.dump(user_final_rating, open("user_based_recomm.pkl", "wb"))
