@@ -16,3 +16,4 @@ requests
 imblearn
 sklearn
 nltk
+seaborn

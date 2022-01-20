@@ -24,6 +24,7 @@ import time
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
+import seaborn as sns
 from collections import Counter
 from datetime import datetime
 import warnings
@@ -58,27 +59,8 @@ from sklearn.metrics import confusion_matrix, classification_report
 
 product_data = pd.read_csv("dataset/sample30.csv")
 
-"""**EDA of the data set given**"""
-
-## null column check
-product_data.isnull().sum()
-
-product_data.info()
-
 ## dropping null values from user_sentiment column
 df = product_data.dropna(subset=['user_sentiment'])
-
-## checking null values columns
-
-df.isnull().sum()
-
-#plotting application data distribution
-plt.figure(figsize= (10,10))
-sns.countplot(x='user_sentiment', data= df)
-plt.show()
-
-## total no. in each user_sentiment
-product_data['user_sentiment'].value_counts()
 
 # mapping the positive sentiments as 1 and negative as 0
 df['user_sentiment']= df['user_sentiment'].map({'Positive':1 , 'Negative':0})
