@@ -48,7 +48,7 @@ def login():
                top_5_products= top5['name']
                top_5_product = pd.DataFrame({'name':top_5_products})
                
-               return  render_template('view.html',tables=[top_5_product.to_html(classes='name')], titles = ['NAN', 'Top 5 Prediction'])
+               return  render_template('index.html',tables=[top_5_product.to_html(classes='name')], titles = ['NAN', 'Top 5 Prediction'])
                
             else:
                 return 'username not available'
