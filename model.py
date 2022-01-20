@@ -56,7 +56,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score
 from sklearn.metrics import confusion_matrix, classification_report
 
-product_data = pd.read_csv("/content/sample30.csv")
+product_data = pd.read_csv("dataset/sample30.csv")
 
 """**EDA of the data set given**"""
 
@@ -268,7 +268,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 #reading ratings file
-reviews = pd.read_csv('/content/sample30.csv')
+reviews = pd.read_csv('dataset/sample30.csv')
 
 reviews.head()
 
@@ -467,7 +467,7 @@ import pickle
 pickle.dump(user_final_rating, open("user_based_recomm.pkl", "wb"))
 
 def prediction(name):
-    reviews = pd.read_csv('/content/sample30.csv')
+    reviews = pd.read_csv('dataset/sample30.csv')
     pipeline = pickle.load(open('user_based_recomm.pkl', 'rb'))
     sr = pipeline.loc[name].sort_values(ascending=False)[0:20] ## series
     top_20_products = pd.DataFrame({'name':sr.index})
