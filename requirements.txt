@@ -17,3 +17,4 @@ imblearn
 sklearn
 nltk
 seaborn
+mlxtend
